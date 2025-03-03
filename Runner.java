@@ -2,34 +2,42 @@ import java.util.Scanner;
 
 public class Runner {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Calc myCalculator = new Calc();
+        Scanner scan = new Scanner(System.in);
 
-        Pet pet1 = new Pet();
-        System.out.println(pet1);
+        //This gets a valid user input for two numbers
+        double n1 = getValidNumber(scan, "Please enter the first number: ");
+        double n2 = getValidNumber(scan, "Please enter the second number: ");
 
-        Pet pet2 = new Pet("Bella", "dog", 16);
-        System.out.println(pet2);
+        myCalculator.setNum1(n1);
+        myCalculator.setNum2(n2);
 
-        Pet pet3 = new Pet("Sheeba", "ferret", 6);
-        System.out.println(pet3);
+        System.out.println(myCalculator);
 
-        System.out.println("Enter animal type:");
-        String type = scanner.nextLine();
+        System.out.println("Calling num1 get method: " + myCalculator.getNum1());
+        System.out.println("Calling num2 get method: " + myCalculator.getNum2());
 
-        System.out.println("Enter animal name:");
-        String name = scanner.nextLine();
+        //Calling Calc methods
+        System.out.println("The sum is: " + myCalculator.add());
+        System.out.println("The difference is: " + myCalculator.subtract());
+        System.out.println("The product is: " + myCalculator.multiply());
+        System.out.println("The quotient is: " + myCalculator.divide());
+    }
 
-        System.out.println("Enter animal age:");
-        int age = scanner.nextInt();
-
-        Pet pet4 = new Pet(name, type, age);
-        System.out.println(pet4);
-
-        pet4.setName("Updated Name");
-        pet4.setAge(5);
-        System.out.println("Updated Pet 4:");
-        System.out.println(pet4);
-
-        scanner.close();
+    //This is how we make sure to get a number
+    private static double getValidNumber(Scanner scan, String prompt) {
+        double number;
+        while (true) {
+            System.out.print(prompt);
+            if (scan.hasNextDouble()) {
+                number = scan.nextDouble();
+                scan.nextLine();
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scan.next();
+            }
+        }
+        return number;
     }
 }
